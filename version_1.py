@@ -85,6 +85,7 @@ def ingresar_usuario():
         return
     else:
         print("\n Opción no válida. Intente nuevamente.")
+    
 
 def menu_principal():
     while True:
