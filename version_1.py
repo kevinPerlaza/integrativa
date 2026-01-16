@@ -85,7 +85,30 @@ def ingresar_usuario():
         return
     else:
         print("\n Opción no válida. Intente nuevamente.")
-    
+def verificar_run_profesor():
+    run = input("Ingrese su RUN profesor: ")
+    for usuario in lista_usuarios:
+        if usuario.run == run:
+            if usuario.rol == "profesor":
+                print("\n Bienvenido, profesor ",usuario.nombre," ",usuario.apellido)
+                return True
+                break
+    return False
+def verificar_run_alumno():
+    run = input("Ingrese su RUN alumno: ")
+    for usuario in lista_usuarios:
+        if usuario.run == run:
+            if usuario.rol == "alumno":
+                if usuario.sesion.alumno == int(input("Ingrese la sección: ")):
+                    return True
+                    break
+    return False
+def ingresar_notas():
+    while verificar_run_profesor() == False:
+        print("\n El profesor no existe. Intente nuevamente.")
+    while verificar_run_alumno() == False:
+        print("\n El alumno no existe o no pertenece a la sección dada por el profesor. Intente nuevamente.")
+
 
 def menu_principal():
     while True:
