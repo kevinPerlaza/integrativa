@@ -1,3 +1,4 @@
+lista_usuarios = []
 class sesion:
     alumno = int
     profesor = []
@@ -10,7 +11,31 @@ class persona:
     rol = ["alumno","profesor"]
     sesion = sesion()
 
-lista_usuarios = []
+def verificar_run(run):
+    run_usuario = run
+    run_limpio = run_usuario.replace(".", "") 
+    parte_numero, dv_usuario = run_limpio.split("-") 
+    serie = 2
+    suma = 0
+    for digito in reversed(parte_numero):
+        suma += int(digito) * serie
+        serie += 1
+        if serie > 7:
+            serie = 2
+    resto = 11 - (suma % 11)
+    if resto == 11:
+        dv_calculado = '0'
+    elif resto == 10:
+        dv_calculado = 'K'
+    else:
+        dv_calculado = str(resto)
+    if dv_usuario.upper() == dv_calculado:
+        return True
+    else:
+        print("El RUN es INVÁLIDO Ingrese nuevamente")
+        return False
+    
+
 def ingresar_usuario():
     print("INGRESAR USUARIO \n")
     print("1. Ingresar Alumno")
@@ -19,7 +44,11 @@ def ingresar_usuario():
     opcion = input("\nSeleccione una opción: ")
     if opcion == "1":
         alumno = persona()
-        alumno.run = input("Ingrese el RUN:")
+        run = input("Ingrese el RUN:")
+        while verificar_run(run) == False:
+            run = input("Ingrese el RUN:")
+            verificar_run(run)
+        alumno.run = run
         alumno.nombre = input("Ingrese el nombre:")
         alumno.apellido = input("Ingrese el apellido:")
         alumno.edad = input("Ingrese la edad:")
@@ -30,7 +59,11 @@ def ingresar_usuario():
         print("\n Alumno",alumno.nombre,"",alumno.apellido,"",alumno.run," ingresado exitosamente!")
     elif opcion == "2":
         profesor = persona()
-        profesor.run = input("Ingrese el RUN:")
+        run = input("Ingrese el RUN:")
+        while verificar_run(run) == False:
+            run = input("Ingrese el RUN:")
+            verificar_run(run)
+        profesor.run = run
         profesor.nombre = input("Ingrese el nombre:")
         profesor.apellido = input("Ingrese el apellido:")
         profesor.edad = input("Ingrese la edad:")
