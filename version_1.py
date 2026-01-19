@@ -14,8 +14,8 @@ class persona:
 def verificar_run(run):
     run_usuario = run
     run_limpio = run_usuario.replace(".", "")
+    tiene_guion = 0
     for digito in run_limpio:
-        tiene_guion = 0
         if digito == "-":
             tiene_guion = 1
     if tiene_guion == 0:
@@ -26,7 +26,7 @@ def verificar_run(run):
     suma = 0
     for digito in reversed(parte_numero):
         if digito.isalpha():
-            print("El RUN es INVÁLIDO. Ingrese nuevamente")
+            print("El RUN es INVÁLIDO, debe contener solo números. Ingrese nuevamente")
             return False   
         suma += int(digito) * serie
         serie += 1
@@ -42,7 +42,7 @@ def verificar_run(run):
     if dv_usuario.upper() == dv_calculado:
         return True
     else:
-        print("El RUN es INVÁLIDO. Ingrese nuevamente")
+        print("Verificador del RUN es INVÁLIDO, Por favor, ingrese nuevamente")
         return False
 
 
@@ -59,7 +59,6 @@ def ingresar_usuario():
         run = input("Ingrese el RUN (Formato: 12345678-9): ")
         while verificar_run(run) == False:
             run = input("Ingrese el RUN (Formato: 12345678-9): ")
-            verificar_run(run)
         alumno.run = run
         alumno.nombre = input("Ingrese el nombre: ")
         alumno.apellido = input("Ingrese el apellido: ")
@@ -74,7 +73,6 @@ def ingresar_usuario():
         run = input("Ingrese el RUN (Formato: 12345678-9): ")
         while verificar_run(run) == False:
             run = input("Ingrese el RUN (Formato: 12345678-9): ")
-            verificar_run(run)
         profesor.run = run
         profesor.nombre = input("Ingrese el nombre: ")
         profesor.apellido = input("Ingrese el apellido: ")
