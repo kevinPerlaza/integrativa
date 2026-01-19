@@ -47,6 +47,7 @@ def verificar_run(run):
 
 
 
+
 def ingresar_usuario():
     print("INGRESAR USUARIO \n")
     print("1. Ingresar Alumno")
