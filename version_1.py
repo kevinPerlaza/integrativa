@@ -32,9 +32,8 @@ def verificar_run(run):
     if dv_usuario.upper() == dv_calculado:
         return True
     else:
-        print("El RUN es INVÁLIDO Ingrese nuevamente")
+        print("El RUN es INVÁLIDO. Ingrese nuevamente")
         return False
-    
 
 def ingresar_usuario():
     print("INGRESAR USUARIO \n")
@@ -46,28 +45,28 @@ def ingresar_usuario():
         alumno = persona()
         run = input("Ingrese el RUN:")
         while verificar_run(run) == False:
-            run = input("Ingrese el RUN:")
+            run = input("Ingrese el RUN: ")
             verificar_run(run)
         alumno.run = run
-        alumno.nombre = input("Ingrese el nombre:")
-        alumno.apellido = input("Ingrese el apellido:")
-        alumno.edad = input("Ingrese la edad:")
-        alumno.asignatura = input("Ingrese la asignatura:")
+        alumno.nombre = input("Ingrese el nombre: ")
+        alumno.apellido = input("Ingrese el apellido: ")
+        alumno.edad = input("Ingrese la edad: ")
+        alumno.asignatura = input("Ingrese la asignatura: ")
         alumno.rol = "alumno"
         alumno.sesion.alumno = int(input("Ingrese la sección: "))
         lista_usuarios.append(alumno)
         print("\n Alumno",alumno.nombre,"",alumno.apellido,"",alumno.run," ingresado exitosamente!")
     elif opcion == "2":
         profesor = persona()
-        run = input("Ingrese el RUN:")
+        run = input("Ingrese el RUN: ")
         while verificar_run(run) == False:
-            run = input("Ingrese el RUN:")
+            run = input("Ingrese el RUN: ")
             verificar_run(run)
         profesor.run = run
-        profesor.nombre = input("Ingrese el nombre:")
-        profesor.apellido = input("Ingrese el apellido:")
-        profesor.edad = input("Ingrese la edad:")
-        profesor.asignatura = input("Ingrese la asignatura:")
+        profesor.nombre = input("Ingrese el nombre: ")
+        profesor.apellido = input("Ingrese el apellido: ")
+        profesor.edad = input("Ingrese la edad: ")
+        profesor.asignatura = input("Ingrese la asignatura: ")
         profesor.rol = "profesor"
         while True:
             sesion = int(input("Ingrese la sección: "))
@@ -76,7 +75,7 @@ def ingresar_usuario():
                 print("\n Sección",sesion," agregada exitosamente!")
             else:
                 print("\n Sección",sesion," ya existe. Intente nuevamente.")
-            respuesta = input(print("\n ¿Desea agregar otra sección? (si/no)"))
+            respuesta = input(print("\n ¿Desea agregar otra sección? (si/no): "))
             if respuesta == "no":
                 break
         lista_usuarios.append(profesor)
@@ -85,6 +84,7 @@ def ingresar_usuario():
         return
     else:
         print("\n Opción no válida. Intente nuevamente.")
+
 def verificar_run_profesor():
     run = input("Ingrese su RUN profesor: ")
     for usuario in lista_usuarios:
@@ -94,8 +94,9 @@ def verificar_run_profesor():
                 return True
                 break
     return False
+
 def verificar_run_alumno():
-    run = input("Ingrese su RUN alumno: ")
+    run = input("Ingrese RUN del alumno: ")
     for usuario in lista_usuarios:
         if usuario.run == run:
             if usuario.rol == "alumno":
@@ -103,12 +104,12 @@ def verificar_run_alumno():
                     return True
                     break
     return False
+
 def ingresar_notas():
     while verificar_run_profesor() == False:
         print("\n El profesor no existe. Intente nuevamente.")
     while verificar_run_alumno() == False:
         print("\n El alumno no existe o no pertenece a la sección dada por el profesor. Intente nuevamente.")
-
 
 def menu_principal():
     while True:
@@ -116,9 +117,9 @@ def menu_principal():
         print("1. Ingresar usuarios")
         print("2. Ingresar notas")
         print("3. Listar Secciones")
-        print("4. Listar Alumno")
+        print("4. Listar Alumnos")
         print("5. Listar Profesores")
-        print("0. Salir")
+        print("6. Salir")
         print("="*50)
         opcion = input("\nSeleccione una opción: ")
         
@@ -129,7 +130,7 @@ def menu_principal():
         elif opcion == "3":
             listar_secciones()
         elif opcion == "4":
-            listar_alumno()
+            listar_alumnos()
         elif opcion == "5":
             listar_profesores()
         elif opcion == "6":
