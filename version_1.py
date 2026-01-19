@@ -13,11 +13,21 @@ class persona:
 
 def verificar_run(run):
     run_usuario = run
-    run_limpio = run_usuario.replace(".", "") 
+    run_limpio = run_usuario.replace(".", "")
+    for digito in run_limpio:
+        tiene_guion = 0
+        if digito == "-":
+            tiene_guion = 1
+    if tiene_guion == 0:
+        print("Por favor, ingrese el RUN con el formato correcto (12345678-9).")
+        return False
     parte_numero, dv_usuario = run_limpio.split("-") 
     serie = 2
     suma = 0
     for digito in reversed(parte_numero):
+        if digito.isalpha():
+            print("El RUN es INVÁLIDO. Ingrese nuevamente")
+            return False   
         suma += int(digito) * serie
         serie += 1
         if serie > 7:
@@ -43,9 +53,9 @@ def ingresar_usuario():
     opcion = input("\nSeleccione una opción: ")
     if opcion == "1":
         alumno = persona()
-        run = input("Ingrese el RUN:")
+        run = input("Ingrese el RUN (Formato: 12345678-9): ")
         while verificar_run(run) == False:
-            run = input("Ingrese el RUN: ")
+            run = input("Ingrese el RUN (Formato: 12345678-9): ")
             verificar_run(run)
         alumno.run = run
         alumno.nombre = input("Ingrese el nombre: ")
@@ -58,9 +68,9 @@ def ingresar_usuario():
         print("\n Alumno",alumno.nombre,"",alumno.apellido,"",alumno.run," ingresado exitosamente!")
     elif opcion == "2":
         profesor = persona()
-        run = input("Ingrese el RUN: ")
+        run = input("Ingrese el RUN (Formato: 12345678-9): ")
         while verificar_run(run) == False:
-            run = input("Ingrese el RUN: ")
+            run = input("Ingrese el RUN (Formato: 12345678-9): ")
             verificar_run(run)
         profesor.run = run
         profesor.nombre = input("Ingrese el nombre: ")
