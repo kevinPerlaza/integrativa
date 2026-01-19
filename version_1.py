@@ -11,6 +11,8 @@ class persona:
     rol = ["alumno","profesor"]
     sesion = sesion()
 
+
+
 def verificar_run(run):
     run_usuario = run
     run_limpio = run_usuario.replace(".", "")
