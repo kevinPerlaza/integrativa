@@ -45,6 +45,8 @@ def verificar_run(run):
         print("El RUN es INVÁLIDO. Ingrese nuevamente")
         return False
 
+
+
 def ingresar_usuario():
     print("INGRESAR USUARIO \n")
     print("1. Ingresar Alumno")
