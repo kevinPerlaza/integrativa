@@ -20,6 +20,7 @@ def run_existe(run):
                 return True
                 break
     return False
+
 def verificar_run(run):
        
     run_usuario = run
@@ -98,6 +99,8 @@ def ingresar_usuario():
             respuesta = input("\n ¿Desea agregar otra sección? (si/no): ")
             if respuesta == "no":
                 break
+            else:
+                respuesta = input("\n Opción no válida. Intente nuevamente. (si/no): ")
         lista_usuarios.append(profesor)
         print("\n Profesor",profesor.nombre,"",profesor.apellido," ingresado exitosamente!")
     elif opcion == "0":
@@ -126,12 +129,28 @@ def verificar_run_alumno():
     return False
 
 def ingresar_notas():
+    hay_profesor = False
     for usuario in lista_usuarios:
         if usuario.rol == "profesor":
-            return True
+            hay_profesor = True
             break
-    return print(" No hay profesores ingresados, por favor ingrese un profesor"), os.system("pause"), menu_principal()
-
+    
+    if hay_profesor == False:
+        print(" No hay profesores ingresados, por favor ingrese un profesor")
+        os.system("pause")
+        return
+    
+    hay_alumno = False
+    for usuario in lista_usuarios:
+        if usuario.rol == "alumno":
+            hay_alumno = True
+            break
+    
+    if hay_alumno == False:
+        print(" No hay alumnos ingresados, por favor ingrese un alumno")
+        os.system("pause")
+        return
+    
     while verificar_run_profesor() == False:
         print("\n El profesor no existe. Intente nuevamente.")
     
@@ -198,7 +217,7 @@ def listar_secciones():
     
     print("=" * 85)
     print()
-    input("Presione Enter para volver al menú principal...")
+    os.system("pause")
 
 def menu_principal():
     while True:
