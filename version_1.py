@@ -12,13 +12,16 @@ class persona:
     rol = ["alumno","profesor"]
     sesion = sesion()
 
-def verificar_run(run):
+def run_existe(run):
     if lista_usuarios != []:
         for usuario in lista_usuarios:
-            if usuario.run != run:
+            if usuario.run == run:
+                print(" El Run ya existe en el sistema."), os.system("pause")
                 return True
                 break
-        return print(" El Run ya existe en el sistema."), os.system("pause"), ingresar_usuario()
+    return False
+def verificar_run(run):
+       
     run_usuario = run
     run_limpio = run_usuario.replace(".", "")
     tiene_guion = 0
@@ -62,7 +65,7 @@ def ingresar_usuario():
         alumno = persona()
         run = input("Ingrese el RUN (Formato: 12345678-9): ")
 
-        while verificar_run(run) == False:
+        while verificar_run(run) == False or run_existe(run) == True:
             run = input("Ingrese el RUN (Formato: 12345678-9): ")
         alumno.run = run
         alumno.nombre = input("Ingrese el nombre: ")
