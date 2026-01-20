@@ -1,3 +1,4 @@
+import os
 lista_usuarios = []
 class sesion:
     alumno = int
@@ -12,6 +13,12 @@ class persona:
     sesion = sesion()
 
 def verificar_run(run):
+    if lista_usuarios != []:
+        for usuario in lista_usuarios:
+            if usuario.run != run:
+                return True
+                break
+        return print(" El Run ya existe en el sistema."), os.system("pause"), ingresar_usuario()
     run_usuario = run
     run_limpio = run_usuario.replace(".", "")
     tiene_guion = 0
@@ -54,6 +61,7 @@ def ingresar_usuario():
     if opcion == "1":
         alumno = persona()
         run = input("Ingrese el RUN (Formato: 12345678-9): ")
+
         while verificar_run(run) == False:
             run = input("Ingrese el RUN (Formato: 12345678-9): ")
         alumno.run = run
@@ -115,6 +123,12 @@ def verificar_run_alumno():
     return False
 
 def ingresar_notas():
+    for usuario in lista_usuarios:
+        if usuario.rol == "profesor":
+            return True
+            break
+    return print(" No hay profesores ingresados, por favor ingrese un profesor"), os.system("pause"), menu_principal()
+
     while verificar_run_profesor() == False:
         print("\n El profesor no existe. Intente nuevamente.")
     
