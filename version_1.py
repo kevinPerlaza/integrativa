@@ -236,13 +236,44 @@ def listar_secciones():
     print()
     os.system("pause")
 
+
+def verificar_run_alumno(run):
+    for usuario in lista_usuarios:
+        if usuario.run == run and usuario.rol == "alumno":
+            return True
+    return False
+
+def listar_alumno():
+    run = input("Ingrese el RUN del alumno: ")
+    while verificar_run_alumno(run) == False:
+        print("\n El alumno no existe. Intente nuevamente.") 
+        run = input("Ingrese el RUN del alumno: ")   
+    for usuario in lista_usuarios:
+        if usuario.run == run and usuario.rol == "alumno":
+            nombre_completo = usuario.nombre + " " + usuario.apellido
+            if len(usuario.notas) == 3:
+                nota1 = usuario.notas[0]
+                nota2 = usuario.notas[1]
+                nota3 = usuario.notas[2]
+                promedio = int((nota1 + nota2 + nota3) / 3 * 10) / 10
+                if promedio >= 4.0:
+                    estado = "Aprobado"
+                else:
+                    estado = "Reprobado"
+                print("{:<20} {:>8.1f} {:>8.1f} {:>8.1f} {:>10.1f} {:>18}".format(
+                nombre_completo, nota1, nota2, nota3, promedio, estado))
+        else:
+            print("{:<20} {:>8} {:>8} {:>8} {:>10} {:>18}".format(
+                nombre_completo, "S/N", "S/N", "S/N", "S/N", "Sin notas"))
+    os.system("pause")
+
 def menu_principal():
     while True:
         print("Menu Principal \n")
         print("1. Ingresar usuarios")
         print("2. Ingresar notas")
         print("3. Listar Secciones")
-        print("4. Listar Alumnos")
+        print("4. Listar Alumno")
         print("5. Listar Profesores")
         print("6. Salir")
         print("="*50)
@@ -255,7 +286,7 @@ def menu_principal():
         elif opcion == "3":
             listar_secciones()
         elif opcion == "4":
-            listar_alumnos()
+            listar_alumno()
         elif opcion == "5":
             listar_profesores()
         elif opcion == "6":
