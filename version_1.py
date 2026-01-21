@@ -1,36 +1,42 @@
 import os
 lista_usuarios = []
-class sesion:
-    alumno = int
-    profesor = []
+#class sesion:
+#    alumno = int
+#    profesor = []
 class persona:
     run = ""
     nombre = ""
     apellido = ""
     edad = ""
     asignatura = ""
-    rol = ["alumno","profesor"]
-    sesion = sesion()
+    #rol = ["alumno","profesor"]
+    #sesion = sesion()
+class alumno:
+    persona = persona()
+    sesion = int
+    rol = "alumno"
+    notas = []
+class profesor:
+    persona = persona()
+    rol = "profesor"
+    sesion = []
 
-alumno1 = persona()
+alumno1 = alumno()
 alumno1.run = "11.111.111-1"
 alumno1.nombre = "kevin"
 alumno1.apellido = "perlaza"
-alumno1.rol = "alumno"
 alumno1.edad = "24"
 alumno1.asignatura = "programacion"
-alumno1.sesion.alumno = 1
-alumno1.notas = []
+alumno1.sesion = 1
 lista_usuarios.append(alumno1)
 
-profesor1 = persona()
+profesor1 = profesor()
 profesor1.run = "12.345.678-5"
 profesor1.nombre = "hansel"
 profesor1.apellido = "duran"
-profesor1.rol = "profesor"
 profesor1.edad = "22"
 profesor1.asignatura = "programacion"
-profesor1.sesion.profesor = [1,2]
+profesor1.sesion = [1,2]
 lista_usuarios.append(profesor1)
 
 def run_existe(run):
@@ -84,7 +90,7 @@ def ingresar_usuario():
     print("0. Volver al menú principal")
     opcion = input("\nSeleccione una opción: ")
     if opcion == "1":
-        alumno = persona()
+        alumno = alumno()
         run = input("Ingrese el RUN (Formato: 12345678-9): ")
 
         while verificar_run(run) == False or run_existe(run) == True:
@@ -94,14 +100,12 @@ def ingresar_usuario():
         alumno.apellido = input("Ingrese el apellido: ")
         alumno.edad = input("Ingrese la edad: ")
         alumno.asignatura = input("Ingrese la asignatura: ")
-        alumno.rol = "alumno"
-        alumno.sesion.alumno = int(input("Ingrese la sección: "))
-        alumno.notas = []
+        alumno.sesion = int(input("Ingrese la sección: "))
         lista_usuarios.append(alumno)
         print(lista_usuarios)
         print("\n Alumno",alumno.nombre,"",alumno.apellido,"",alumno.run," ingresado exitosamente!")
     elif opcion == "2":
-        profesor = persona()
+        profesor = profesor()
         run = input("Ingrese el RUN (Formato: 12345678-9): ")
         while verificar_run(run) == False:
             run = input("Ingrese el RUN (Formato: 12345678-9): ")
@@ -110,11 +114,10 @@ def ingresar_usuario():
         profesor.apellido = input("Ingrese el apellido: ")
         profesor.edad = input("Ingrese la edad: ")
         profesor.asignatura = input("Ingrese la asignatura: ")
-        profesor.rol = "profesor"
         while True:
             sesion = int(input("Ingrese la sección: "))
-            if sesion not in profesor.sesion.profesor:
-                profesor.sesion.profesor.append(sesion)
+            if sesion not in profesor.sesion:
+                profesor.sesion.append(sesion)
                 print("\n Sección",sesion," agregada exitosamente!")
             else:
                 print("\n Sección",sesion," ya existe. Intente nuevamente.")
@@ -140,16 +143,6 @@ def verificar_run_profesor():
                 print("\n Bienvenido, profesor ",usuario.nombre," ",usuario.apellido)
                 return True
                 break
-    return False
-
-def verificar_run_alumno():
-    run = input("Ingrese RUN del alumno: ")
-    for usuario in lista_usuarios:
-        if usuario.run == run:
-            if usuario.rol == "alumno":
-                if usuario.sesion.alumno == int(input("Ingrese la sección: ")):
-                    return True
-                    break
     return False
 
 def ingresar_notas():
@@ -209,7 +202,7 @@ def listar_secciones():
     seccion_buscar = int(input("Ingrese la sección a listar: "))
     alumnos_seccion = []
     for usuario in lista_usuarios:
-        if usuario.rol == "alumno" and usuario.sesion.alumno == seccion_buscar:
+        if usuario.rol == "alumno" and usuario.sesion == seccion_buscar:
             alumnos_seccion.append(usuario)
     if len(alumnos_seccion) == 0:
         print("\nNo hay alumnos en la sección", seccion_buscar)
