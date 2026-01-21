@@ -261,8 +261,8 @@ def listar_alumno():
                     estado = "Reprobado"
                 print("{:<20} {:>8.1f} {:>8.1f} {:>8.1f} {:>10.1f} {:>18}".format(
                 nombre_completo, nota1, nota2, nota3, promedio, estado))
-        else:
-            print("{:<20} {:>8} {:>8} {:>8} {:>10} {:>18}".format(
+            else:
+                print("{:<20} {:>8} {:>8} {:>8} {:>10} {:>18}".format(
                 nombre_completo, "S/N", "S/N", "S/N", "S/N", "Sin notas"))
     os.system("pause")
 
