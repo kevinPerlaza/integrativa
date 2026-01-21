@@ -1,25 +1,25 @@
 import os
 lista_usuarios = []
-#class sesion:
-#    alumno = int
-#    profesor = []
 class Persona:
-    run = ""
-    nombre = ""
-    apellido = ""
-    edad = ""
-    asignatura = ""
-    #rol = ["alumno","profesor"]
-    #sesion = sesion()
+    def __init__(self):
+        self.run = ""
+        self.nombre = ""
+        self.apellido = ""
+        self.edad = ""
+        self.asignatura = ""
+
 class Alumno:
-    persona = Persona()
-    sesion = int
-    rol = "alumno"
-    notas = []
+    def __init__(self):
+        self.persona = Persona()
+        self.sesion = 0       
+        self.rol = "alumno"
+        self.notas = []          
+
 class Profesor:
-    persona = Persona()
-    rol = "profesor"
-    sesion = []
+    def __init__(self):
+        self.persona = Persona()
+        self.rol = "profesor"
+        self.sesion = []         
 
 alumno1 = Alumno()
 alumno1.persona.run = "11.111.111-1"
