@@ -12,7 +12,7 @@ class persona:
     rol = ["alumno","profesor"]
     sesion = sesion()
 
- alumno1 = persona()
+alumno1 = persona()
 alumno1.run = "11.111.111-1"
 alumno1.nombre = "kevin"
 alumno1.apellido = "perlaza"
