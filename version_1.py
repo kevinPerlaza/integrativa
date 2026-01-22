@@ -22,7 +22,7 @@ class Profesor:
         self.sesion = []         
 
 alumno1 = Alumno()
-alumno1.persona.run = "11.111.111-1"
+alumno1.persona.run = "11111111-1"
 alumno1.persona.nombre = "kevin"
 alumno1.persona.apellido = "perlaza"
 alumno1.persona.edad = "24"
@@ -31,7 +31,7 @@ alumno1.sesion = 1
 lista_usuarios.append(alumno1)
 
 profesor1 = Profesor()
-profesor1.persona.run = "12.345.678-5"
+profesor1.persona.run = "12345678-5"
 profesor1.persona.nombre = "hansel"
 profesor1.persona.apellido = "duran"
 profesor1.persona.edad = "22"
@@ -102,7 +102,7 @@ def ingresar_usuario():
         alumno.persona.asignatura = input("Ingrese la asignatura: ")
         alumno.sesion = int(input("Ingrese la sección: "))
         lista_usuarios.append(alumno)
-        print("\n Alumno",alumno.persona.nombre,"",alumno.persona.apellido,"",alumno.persona.run," ingresado exitosamente!")
+        print(f"\n Alumno {alumno.persona.nombre} {alumno.persona.apellido} {alumno.persona.run} ingresado exitosamente!")
     elif opcion == "2":
         profesor = Profesor()
         run = input("Ingrese el RUN (Formato: 12345678-9): ")
@@ -117,9 +117,9 @@ def ingresar_usuario():
             sesion = int(input("Ingrese la sección: "))
             if sesion not in profesor.sesion:
                 profesor.sesion.append(sesion)
-                print("\n Sección",sesion," agregada exitosamente!")
+                print(f"\n Sección {sesion} agregada exitosamente!")
             else:
-                print("\n Sección",sesion," ya existe. Intente nuevamente.")
+                print(f"\n Sección {sesion} ya existe. Intente nuevamente.")
             respuesta = input("\n ¿Desea agregar otra sección? (si/no): ")
             if respuesta == "no":
                 break
@@ -128,7 +128,7 @@ def ingresar_usuario():
             else:
                 respuesta = input("\n Opción no válida. Intente nuevamente. (si/no): ")
         lista_usuarios.append(profesor)
-        print("\n Profesor",profesor.persona.nombre,"",profesor.persona.apellido," ingresado exitosamente!")
+        print(f"\n Profesor {profesor.persona.nombre} {profesor.persona.apellido} ingresado exitosamente!")
     elif opcion == "0":
         return
     else:
@@ -139,7 +139,7 @@ def verificar_run_profesor():
     for usuario in lista_usuarios:
         if usuario.persona.run == run:
             if usuario.rol == "profesor":
-                print("\n Bienvenido, profesor ",usuario.persona.nombre," ",usuario.persona.apellido)
+                print(f"\n Bienvenido, profesor {usuario.persona.nombre} {usuario.persona.apellido}")
                 return True
                 break
     return False
@@ -182,12 +182,12 @@ def ingresar_notas():
         print("\n El alumno no existe. Intente nuevamente.")
         return
     
-    print("\nIngresando notas para:", alumno_encontrado.persona.nombre, alumno_encontrado.persona.apellido)
+    print(f"\nIngresando notas para: {alumno_encontrado.persona.nombre} {alumno_encontrado.persona.apellido}")
     alumno_encontrado.notas = []
     
     contador = 1
     while contador <= 3:
-        nota_texto = input("Ingrese la Nota " + str(contador) + " (1.0 a 7.0): ")
+        nota_texto = input(f"Ingrese la Nota {contador} (1.0 a 7.0): ")
         nota = float(nota_texto)
         if nota >= 1.0 and nota <= 7.0:
             alumno_encontrado.notas.append(nota)
@@ -195,7 +195,7 @@ def ingresar_notas():
         else:
             print("La nota debe estar entre 1.0 y 7.0. Intente nuevamente.")
     
-    print("\n Notas ingresadas exitosamente para", alumno_encontrado.persona.nombre, alumno_encontrado.persona.apellido)
+    print(f"\n Notas ingresadas exitosamente para {alumno_encontrado.persona.nombre} {alumno_encontrado.persona.apellido}")
 
 def listar_secciones():
     seccion_buscar = int(input("Ingrese la sección a listar: "))
@@ -204,11 +204,10 @@ def listar_secciones():
         if usuario.rol == "alumno" and usuario.sesion == seccion_buscar:
             alumnos_seccion.append(usuario)
     if len(alumnos_seccion) == 0:
-        print("\nNo hay alumnos en la sección", seccion_buscar)
+        print(f"\nNo hay alumnos en la sección {seccion_buscar}")
         return
-    print(alumnos_seccion[0].persona.nombre, alumnos_seccion[1].persona.nombre)
     print("\n" + "=" * 85)
-    print("LISTADO DE ALUMNOS - SECCIÓN", seccion_buscar)
+    print(f"LISTADO DE ALUMNOS - SECCIÓN {seccion_buscar}")
     print("=" * 85)
     print("{:<20} {:>8} {:>8} {:>8} {:>10} {:>18}".format(
         "Nombre", "Nota 1", "Nota 2", "Nota 3", "Promedio", "Estado del Alumno"))
@@ -250,6 +249,12 @@ def listar_alumno():
     for usuario in lista_usuarios:
         if usuario.persona.run == run and usuario.rol == "alumno":
             nombre_completo = usuario.persona.nombre + " " + usuario.persona.apellido
+            print("\n" + "=" * 85)
+            print(f"Notas del Alumno: {nombre_completo}")
+            print("=" * 85)
+            print("{:<20} {:>8} {:>8} {:>8} {:>10} {:>18}".format(
+                "Nombre", "Nota 1", "Nota 2", "Nota 3", "Promedio", "Estado del Alumno"))
+            print("-" * 85)
             if len(usuario.notas) == 3:
                 nota1 = usuario.notas[0]
                 nota2 = usuario.notas[1]
@@ -260,10 +265,11 @@ def listar_alumno():
                 else:
                     estado = "Reprobado"
                 print("{:<20} {:>8.1f} {:>8.1f} {:>8.1f} {:>10.1f} {:>18}".format(
-                nombre_completo, nota1, nota2, nota3, promedio, estado))
+                    nombre_completo, nota1, nota2, nota3, promedio, estado))
             else:
                 print("{:<20} {:>8} {:>8} {:>8} {:>10} {:>18}".format(
-                nombre_completo, "S/N", "S/N", "S/N", "S/N", "Sin notas"))
+                    nombre_completo, "S/N", "S/N", "S/N", "S/N", "Sin notas"))
+            print("=" * 85)
     os.system("pause")
 
 def menu_principal():
