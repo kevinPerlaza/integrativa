@@ -134,14 +134,10 @@ def ingresar_usuario():
     else:
         print("\n Opción no válida. Intente nuevamente.")
 
-def verificar_run_profesor():
-    run = input("Ingrese su RUN profesor: ")
+def verificar_run_profesor(run):
     for usuario in lista_usuarios:
-        if usuario.persona.run == run:
-            if usuario.rol == "profesor":
-                print(f"\n Bienvenido, profesor {usuario.persona.nombre} {usuario.persona.apellido}")
-                return True
-                break
+        if usuario.persona.run == run and usuario.rol == "profesor":
+            return True
     return False
 
 def ingresar_notas():
@@ -167,8 +163,10 @@ def ingresar_notas():
         os.system("pause")
         return
     
-    while verificar_run_profesor() == False:
+    run_profe = input("Ingrese su RUN profesor: ")
+    while verificar_run_profesor(run_profe) == False:
         print("\n El profesor no existe. Intente nuevamente.")
+        run_profe = input("Ingrese su RUN profesor: ")
     
     run_alumno = input("Ingrese RUN del alumno para agregar notas: ")
     alumno_encontrado = None
@@ -270,6 +268,60 @@ def listar_alumno():
                 print("{:<20} {:>8} {:>8} {:>8} {:>10} {:>18}".format(
                     nombre_completo, "S/N", "S/N", "S/N", "S/N", "Sin notas"))
             print("=" * 85)
+    os.system("pause")
+
+def listar_profesores():
+    run = input("Ingrese el RUN del profesor: ")
+    while verificar_run_profesor(run) == False:
+        print("\n El profesor no existe. Intente nuevamente.") 
+        run = input("Ingrese el RUN del profesor: ")   
+    for usuario in lista_usuarios:
+        if usuario.persona.run == run and usuario.rol == "profesor":
+            profesor_encontrado = usuario
+            break
+            
+    if profesor_encontrado is None:
+        print("\n El profesor no existe. Intente nuevamente.")
+        os.system("pause")
+        return
+
+    nombre_profesor = profesor_encontrado.persona.nombre + " " + profesor_encontrado.persona.apellido
+    print("\n" + "=" * 85)
+    print(f"Profesor: {nombre_profesor}")
+    print(f"Secciones a cargo: {profesor_encontrado.sesion}")
+    print("=" * 85)
+    
+    alumnos_encontrados = []
+    for usuario in lista_usuarios:
+        if usuario.rol == "alumno" and usuario.sesion in profesor_encontrado.sesion:
+            alumnos_encontrados.append(usuario)
+    
+    if len(alumnos_encontrados) == 0:
+        print("\n No hay alumnos registrados en las secciones de este profesor.")
+    else:
+        print("{:<20} {:<10} {:>8} {:>8} {:>8} {:>10} {:>18}".format(
+            "Nombre Alumno", "Sección", "Nota 1", "Nota 2", "Nota 3", "Promedio", "Estado"))
+        print("-" * 85)
+        
+        for alumno in alumnos_encontrados:
+            nombre_completo = alumno.persona.nombre + " " + alumno.persona.apellido
+            
+            if len(alumno.notas) == 3:
+                nota1 = alumno.notas[0]
+                nota2 = alumno.notas[1]
+                nota3 = alumno.notas[2]
+                promedio = int((nota1 + nota2 + nota3) / 3 * 10) / 10
+                if promedio >= 4.0:
+                    estado = "Aprobado"
+                else:
+                    estado = "Reprobado"
+                print("{:<20} {:<10} {:>8.1f} {:>8.1f} {:>8.1f} {:>10.1f} {:>18}".format(
+                    nombre_completo, alumno.sesion, nota1, nota2, nota3, promedio, estado))
+            else:
+                print("{:<20} {:<10} {:>8} {:>8} {:>8} {:>10} {:>18}".format(
+                    nombre_completo, alumno.sesion, "S/N", "S/N", "S/N", "S/N", "Sin notas"))
+    
+    print("=" * 85)
     os.system("pause")
 
 def menu_principal():
